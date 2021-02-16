@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/SNS-Project-Sweets/static/css/main.e0e8a3e5.chunk.css",
+    "main.js": "/SNS-Project-Sweets/static/js/main.dce42614.chunk.js",
+    "main.js.map": "/SNS-Project-Sweets/static/js/main.dce42614.chunk.js.map",
+    "runtime-main.js": "/SNS-Project-Sweets/static/js/runtime-main.5ecfa9d6.js",
+    "runtime-main.js.map": "/SNS-Project-Sweets/static/js/runtime-main.5ecfa9d6.js.map",
+    "static/js/2.0833c950.chunk.js": "/SNS-Project-Sweets/static/js/2.0833c950.chunk.js",
+    "static/js/2.0833c950.chunk.js.map": "/SNS-Project-Sweets/static/js/2.0833c950.chunk.js.map",
+    "index.html": "/SNS-Project-Sweets/index.html",
+    "static/css/main.e0e8a3e5.chunk.css.map": "/SNS-Project-Sweets/static/css/main.e0e8a3e5.chunk.css.map",
+    "static/js/2.0833c950.chunk.js.LICENSE.txt": "/SNS-Project-Sweets/static/js/2.0833c950.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5ecfa9d6.js",
+    "static/js/2.0833c950.chunk.js",
+    "static/css/main.e0e8a3e5.chunk.css",
+    "static/js/main.dce42614.chunk.js"
+  ]
+}
