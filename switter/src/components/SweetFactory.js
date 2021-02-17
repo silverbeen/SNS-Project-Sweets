@@ -4,6 +4,7 @@ import { dbService, storageService } from "../myBase";
 import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import * as S from "../styles/SweetFactory";
 
 const SweetFactory = ({ userObject }) => {
   const [sweet, setSweet] = useState("");
@@ -65,26 +66,26 @@ const SweetFactory = ({ userObject }) => {
   const onClearFile = () => setFile(null);
 
   return (
-    <form onSubmit={onSubmit} className="factoryForm">
-      <div className="factoryInput__container">
+    <S.FactoryForm onSubmit={onSubmit} className="factoryForm">
+      <S.InputContainer className="factoryInput__container">
         <input
-          className="factoryInput__input"
+          className="input"
           value={sweet}
           type="text"
           placeholder="무슨생각을 하나요"
           maxLength={120}
           onChange={onChange}
         />
-        <input type="submit" value="&rarr;" className="factoryInput__arrow" />
-
         {/* 등록 버튼 */}
-      </div>
+        <input type="submit" value="&rarr;" className="arrow" />
+      </S.InputContainer>
 
-      <label htmlFor="attach-file" className="factoryInput__label">
+      <S.InputLable htmlFor="attach-file">
         <span>Add photos</span>
         <FontAwesomeIcon icon={faPlus} />
-      </label>
+      </S.InputLable>
 
+      {/* 파일 첨부  */}
       <input
         //value={sweet}
         id="attach-file"
@@ -100,7 +101,7 @@ const SweetFactory = ({ userObject }) => {
 
       {/* 파일이 존재한다면 이미지 띄우기  */}
       {file && (
-        <div className="factoryForm__attachment">
+        <S.Attachment>
           <img
             src={file}
             style={{
@@ -109,13 +110,13 @@ const SweetFactory = ({ userObject }) => {
           />
           <button onClick={onClearFile}>Clear</button>
 
-          <div className="factoryForm__clear" onClick={onClearFile}>
+          <div className="clear" onClick={onClearFile}>
             <span>Remove</span>
             <FontAwesomeIcon icon={faTimes} />
           </div>
-        </div>
+        </S.Attachment>
       )}
-    </form>
+    </S.FactoryForm>
   );
 };
 

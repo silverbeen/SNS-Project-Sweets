@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { dbService, storageService } from "../myBase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import * as S from "../styles/Sweet";
 
 const Sweet = ({ sweetObject, isOwner }) => {
   const [editing, setEditing] = useState(false);
@@ -37,7 +38,7 @@ const Sweet = ({ sweetObject, isOwner }) => {
   };
 
   return (
-    <div className="sweet">
+    <S.Sweet>
       {editing ? ( // 너가 만약 수정중이라면 ?? 폼을 보여줘
         <>
           <form className="container" onSubmit={onSubmit}>
@@ -50,36 +51,36 @@ const Sweet = ({ sweetObject, isOwner }) => {
               value={newSweet}
               required
             />
-            <input type="submit" value="수정하기" className="formBtn" />
+            <S.FormBtn type="submit" value="수정하기" className="formBtn" />
           </form>
-          <button onClick={onEditClick} className="formBtn cancleBtn">
+          <S.CancleBtn onClick={onEditClick} className="formBtn cancleBtn">
             Cancle
-          </button>
+          </S.CancleBtn>
         </>
       ) : (
         // 아니라면
         <>
-          <div className="sweet-header">
+          <S.Header>
             <img className="profile-img" src="/" />
             <span>사용자이름</span>
             {isOwner && ( // 이게 내 게시글이라면 버튼을 뜨게해
-              <div className="sweet__actions">
+              <S.Item className="sweet__actions">
                 <span onClick={onDeleteClick}>
                   <FontAwesomeIcon icon={faTrash} />
                 </span>
                 <span onClick={onEditClick}>
                   <FontAwesomeIcon icon={faPencilAlt} />
                 </span>
-              </div>
+              </S.Item>
             )}
-          </div>
+          </S.Header>
           {sweetObject.fileURL && (
             <img className="file-img" src={sweetObject.fileURL} />
           )}
           <h4>{sweetObject.text}</h4>
         </>
       )}
-    </div>
+    </S.Sweet>
   );
 };
 

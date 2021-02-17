@@ -17,6 +17,7 @@ function App() {
           // 받아오는 크키를 줄여줌
           displayName: user.displayName,
           uid: user.displayName,
+          profileURL: user.profileURL,
           updateProfile: (args) => user.updateProfile(args),
         });
       } else {
@@ -31,6 +32,7 @@ function App() {
     setUserObject({
       displayName: user.displayName,
       uid: user.displayName,
+      profileURL: user.profileURL,
       updateProfile: (args) => user.updateProfile(args),
     });
     //setUserObject(authService.currentUser);

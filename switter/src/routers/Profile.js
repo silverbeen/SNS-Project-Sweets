@@ -3,11 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import * as S from "../styles/Profile";
+import ProfileChange from "components/ProfileChange";
 
 const Profile = ({ refreshUser, userObject }) => {
   const histoty = useHistory();
   const [newDisplayName, setNewDisplayName] = useState(userObject.displayName);
-  const [newProfilePhoto, setNewProfilePhoto] = useState("");
+  const [newProfilePhoto, setNewProfilePhoto] = useState(userObject.profileURL);
+  const [file, setFile] = useState("");
 
   const onLogOutClick = () => {
     authService.signOut();
@@ -19,6 +22,7 @@ const Profile = ({ refreshUser, userObject }) => {
     const {
       target: { value },
     } = e;
+
     setNewDisplayName(value);
   };
 
@@ -39,6 +43,7 @@ const Profile = ({ refreshUser, userObject }) => {
     if (userObject.displayName !== newDisplayName) {
       await userObject.updateProfile({
         displayName: newDisplayName,
+        profileURL: newProfilePhoto,
       });
       refreshUser();
     }
@@ -53,14 +58,16 @@ const Profile = ({ refreshUser, userObject }) => {
 
     const profileObj = {
       displayName: newDisplayName,
-      profileURL,
+      profileURL: newProfilePhoto,
     };
 
     await dbService.collection("profile").add(profileObj);
 
-    console.log(profileURL);
-    //setNewProfilePhoto("");
+    setNewProfilePhoto(file);
   };
+  
+  console.log(userObject.profileURL);
+  console.log(newProfilePhoto);
 
   const onProfileChange = (e) => {
     const {
@@ -86,60 +93,74 @@ const Profile = ({ refreshUser, userObject }) => {
   }, []);
 
   return (
-    <div className="container">
-      <form className="profileForm" onSubmit={onSubmit}>
-        <img
-          className="my-face"
-          //src={profileObj.profileURL}
-          /*           style={{
-            backgroundImage: profileURL,
-          }} */
-        />
-        {newProfilePhoto && (
-          <div className="factoryForm__attachment">
-            <img
-              src={newProfilePhoto}
-              style={{
-                backgroundImage: newProfilePhoto,
-              }}
-            />
+    <div className="container profile-container">
+      <S.ProfileForm className="profileForm" onSubmit={onSubmit}>
+        {/* 파일첨부 숨김 */}
+        <div className="profile-img">
+          <img
+            className="my-face"
+            src="/"
+            style={
+              {
+                //backgroundImage: profileURL,
+              }
+            }
+          />
+          {newProfilePhoto && (
+            <S.Attachment>
+              <img
+                src={newProfilePhoto}
+                style={{
+                  backgroundImage: newProfilePhoto,
+                }}
+              />
 
-            <div className="factoryForm__clear" onClick={onClearFile}>
-              <span>Remove</span>
-              <FontAwesomeIcon icon={faTimes} />
-            </div>
-          </div>
-        )}
-        <input
-          //value={sweet}
-          id="attach-file"
-          type="file"
-          accept="image/*"
-          placeholder="What's on your mind?"
-          onChange={onProfileChange}
-          maxLength={120}
-          style={{
-            opacity: 0,
-          }}
-        />
-        <label htmlFor="attach-file" className="factoryInput__label">
-          <span>Edit photos</span>
-          <FontAwesomeIcon icon={faPlus} />
-        </label>
+              <div className="clear" onClick={onClearFile}>
+                <span>Remove</span>
+                <FontAwesomeIcon icon={faTimes} />
+              </div>
+            </S.Attachment>
+          )}
+          <input
+            //value={sweet}
+            id="attach-file"
+            type="file"
+            accept="image/*"
+            placeholder="What's on your mind?"
+            onChange={onProfileChange}
+            maxLength={120}
+            style={{
+              opacity: 0,
+            }}
+          />
 
-        <input
-          className="formInput"
-          autoFocus
-          placeholder="Display name"
-          type="text"
-          value={newDisplayName}
-          onChange={onChange}
-        />
-        <input className="formBtn" type="submit" value="Updata Profile" />
-      </form>
-      <button className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
-        Log Out
-      </button>
+          <S.ProfileImgEdit
+            htmlFor="attach-file"
+            className="factoryInput__label"
+          >
+            <span>Edit photos</span>
+            <FontAwesomeIcon icon={faPlus} />
+          </S.ProfileImgEdit>
+        </div>
+
+        <div className="Edit-container">
+          <input
+            className="formInput"
+            autoFocus
+            placeholder="Display name"
+            type="text"
+            value={newDisplayName}
+            onChange={onChange}
+          />
+          <S.FormBtn className="formBtn" type="submit" value="Updata Profile" />
+          <S.CancleBtn
+            className="formBtn cancelBtn logOut"
+            onClick={onLogOutClick}
+          >
+            Log Out
+          </S.CancleBtn>
+        </div>
+      </S.ProfileForm>
     </div>
   );
 };
